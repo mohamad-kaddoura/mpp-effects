@@ -4,6 +4,8 @@ Array.prototype.contains = function(str) { return this.indexOf (str) != -1;};
 
 var octave = 0;
 var echo = 0;
+var echomulti = 0.65;
+var echochange = false;
 var fill = false;
 var delay = 50;
 
@@ -217,7 +219,7 @@ function triggernote(type,note,vel){
 		for (var i = 0; i <= octave; i++){
 			if (!fill && i != octave && i != 0) continue;
 			for (var j = 1; j <= echo; j++){
-				setTimeout(playNote, j*delay, noteid - 12*i, vel);
+				setTimeout(playNote, j*delay, noteid - 12*i, echochange ? (vel*(Math.pow(echomulti,j))):vel);
 			}
 			if (i == 0) continue;
 			playNote(noteid - 12*i,vel);
